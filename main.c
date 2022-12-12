@@ -1,21 +1,18 @@
-#include <stdio.h>		//printf()
-#include <stdlib.h>		//exit() atoi()
-#include <signal.h>     //signal()
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
 #include <time.h>
-
-#include "../lib/Config/DEV_Config.h"
-#include "../lib/PWM/PCA9685.h"
-#include "../lib/Device/OLED.h"
-#include "../lib/GUI/GUI_Paint.h"
+#include <errno.h>
+#include <fcntl.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <fcntl.h>
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
 #include <sys/wait.h>
+
+#include "lib/Config/DEV_Config.h"
+#include "lib/PWM/PCA9685.h"
+#include "lib/Device/OLED.h"
+#include "lib/GUI/GUI_Paint.h"
 
 #define MAXLINE 1024
 int Get_ip(char *buf)

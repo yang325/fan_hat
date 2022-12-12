@@ -67,7 +67,6 @@ void SSD1306_Init(void)
 void SSD1306_Clear(void)
 {
 	char Column,Page;
-	char W = 0xff;
 	char B = 0x00;
 	for(Page = 0; Page < SSD1306_Page; Page++) { // 4
 		SSD1306_WriteReg(0xb0 + Page);    //Set page address

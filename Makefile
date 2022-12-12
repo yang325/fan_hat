@@ -1,12 +1,11 @@
-DIR_BIN = ./bin
-DIR_Examples = ./examples
+DIR_BIN = ./_build
 DIR_Config = ./lib/Config
 DIR_FONTS = ./lib/Fonts
 DIR_GUI = ./lib/GUI
 DIR_LCD = ./lib/Device
 DIR_PWM = ./lib/PWM
 
-OBJ_C = $(wildcard ${DIR_Config}/*.c ${DIR_FONTS}/*.c ${DIR_GUI}/*.c ${DIR_LCD}/*.c ${DIR_PWM}/*.c ${DIR_Examples}/*.c)
+OBJ_C = $(wildcard ${DIR_Config}/*.c ${DIR_FONTS}/*.c ${DIR_GUI}/*.c ${DIR_LCD}/*.c ${DIR_PWM}/*.c ./*.c)
 OBJ_O = $(patsubst %.c,${DIR_BIN}/%.o,$(notdir ${OBJ_C}))
 
 DEBUG = -D DEBUG
@@ -24,28 +23,30 @@ else ifeq ($(USE_RPI), USE_DEV_LIB)
 endif
 DEBUG_RPI = -D $(USE_RPI)
 
-TARGET = main
+TARGET = $(DIR_BIN)/fan
 CC = gcc
 MSG = -g -O0 -Wall
 CFLAGS += $(MSG)
 
-${TARGET}:${OBJ_O}
+${TARGET}: ${DIR_BIN} ${OBJ_O}
 	$(CC) $(CFLAGS) $(OBJ_O) -o $@ $(LIB_RPI) $(DEBUG_RPI) -I ${DIR_BIN}
 
 
-${DIR_BIN}/%.o:$(DIR_FONTS)/%.c
+${DIR_BIN}/%.o: $(DIR_FONTS)/%.c
 	$(CC) $(CFLAGS) -c  $< -o $@ 
-${DIR_BIN}/%.o:$(DIR_GUI)/%.c
+${DIR_BIN}/%.o: $(DIR_GUI)/%.c
 	$(CC) $(CFLAGS) -c  $< -o $@ 
-${DIR_BIN}/%.o:$(DIR_LCD)/%.c
+${DIR_BIN}/%.o: $(DIR_LCD)/%.c
 	$(CC) $(CFLAGS) -c  $< -o $@ 
-${DIR_BIN}/%.o:$(DIR_PWM)/%.c
+${DIR_BIN}/%.o: $(DIR_PWM)/%.c
 	$(CC) $(CFLAGS) -c  $< -o $@ 
-${DIR_BIN}/%.o:$(DIR_Examples)/%.c
+${DIR_BIN}/%.o: ./%.c
 	$(CC) $(CFLAGS) -c  $< -o $@ 
-${DIR_BIN}/%.o : $(DIR_Config)/%.c
+${DIR_BIN}/%.o: $(DIR_Config)/%.c
 	$(CC) $(CFLAGS) -c  $< -o $@ $(LIB_RPI) $(DEBUG_RPI)
-	
+
 clean :
-	rm $(DIR_BIN)/*.* 
-	rm $(TARGET) 
+	rm -rf $(DIR_BIN) 
+
+${DIR_BIN}:
+	mkdir $@
