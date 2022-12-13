@@ -127,7 +127,7 @@ void DEV_SPI_Write_nByte(uint8_t *pData, uint32_t Len)
 #if DEV_SPI
 #ifdef USE_BCM2835_LIB
 	uint8_t rData[Len];
-	bcm2835_spi_transfernb(pData,rData,Len);
+	bcm2835_spi_transfernb((char *)pData, (char *)rData, Len);
 
 #elif USE_WIRINGPI_LIB
 	wiringPiSPIDataRW(0, pData, Len);
@@ -194,7 +194,7 @@ int DEV_I2C_ReadByte(uint8_t Addr, uint8_t Cmd)
 #ifdef USE_BCM2835_LIB
 	bcm2835_i2c_setSlaveAddress(Addr);
 	char rbuf[2]= {0};
-	bcm2835_i2c_read_register_rs(&Cmd, rbuf, 1);
+	bcm2835_i2c_read_register_rs((char *)&Cmd, rbuf, 1);
 	ref = rbuf[0];
 
 #elif USE_WIRINGPI_LIB
@@ -218,7 +218,7 @@ int DEV_I2C_ReadWord(uint8_t Addr, uint8_t Cmd)
 #ifdef USE_BCM2835_LIB
 	bcm2835_i2c_setSlaveAddress(Addr);
 	char rbuf[2] = {0};
-	bcm2835_i2c_read_register_rs(&Cmd, rbuf, 2);
+	bcm2835_i2c_read_register_rs((char *)&Cmd, rbuf, 2);
 	ref = rbuf[1]<<8 | rbuf[0];
 
 #elif USE_WIRINGPI_LIB
