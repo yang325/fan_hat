@@ -94,7 +94,8 @@ int main(void)
 	DEV_I2C_Init();
 
 	PCA9685_Init(1000);
-	PCA9685_setPWM(0, 40);
+	PCA9685_setPWM(0, 0);
+	int state = 0;
 
 	printf("oled init\r\n");
 	OLED_Init();
@@ -136,18 +137,12 @@ int main(void)
 		Paint_DrawString_EN(80, 15, "C", &Font12, BLACK, WHITE);
 		
 		OLED_Display(Image);
-		if(temp > 40){
-			PCA9685_setPWM(0, 40);
-		}else if(temp > 50){
-			PCA9685_setPWM(0, 50);
-		}else if(temp > 55){
-			PCA9685_setPWM(0, 75);
-		}else if(temp > 60){
-			PCA9685_setPWM(0, 90);
-		}else if(temp > 65){
+		if((state == 0) && (temp > 55)){
 			PCA9685_setPWM(0, 100);
-		}else if(temp < 35){
+			state = 1;
+		}else if((state != 0) && (temp < 45)){
 			PCA9685_setPWM(0, 0);
+			state = 0;
 		}
 		DEV_Delay_ms(1000);
 	}
