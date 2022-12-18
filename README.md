@@ -14,3 +14,30 @@ This is a PWM controlled Fan HAT, which is designed for Raspberry Pi, I2C Bus, P
 
 # Specifications
 
+- Operating voltage: 5V
+- Logic level: 3.3V
+- Driver: PCA9685
+- Interface: I2C
+- Fan PWM driver duty cycle: ≥25%
+- Fan RPM (max): 8000 RPM
+- OLED driver: SSD1306
+- OLED resolution: 128 × 32
+- OLED display color: White
+- OLED FOV: > 160°
+- Mounting holes: 3.0mm
+
+# About board
+
+![overall](https://www.waveshare.com/w/fkbk/swtumb.php?f=Fan-HAT-9_960.jpg&width=700)
+
+- Standard Raspberry Pi 40PIN GPIO header
+- PCA9685 PWM driver
+- 3007 size PWM controlled adjustable fan
+- PCA9685 I2C address configuration
+- Reserved I2C control pins
+- Reserved PCA9685 output channels
+- 0.91inch OLED display
+
+# Pinout
+
+![pinout](https://www.waveshare.com/w/fkbk/swtumb.php?f=Fan-HAT-11_960.jpg&width=700)
