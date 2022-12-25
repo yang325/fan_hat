@@ -74,7 +74,7 @@ static double Get_CPU_Temp(void)
 	return temp;
 }
 
-void  Handler(int signo)
+void Handler(int signo)
 {
 	//System Exit
 	printf("\r\nHandler:exit\r\n");
@@ -90,6 +90,7 @@ int main(void)
 	
 	// Exception handling:ctrl + c
 	signal(SIGINT, Handler);
+	signal(SIGTERM, Handler);
 	DEV_ModuleInit();
 	DEV_I2C_Init();
 
@@ -153,4 +154,3 @@ int main(void)
 	DEV_ModuleExit();
 	return 0;
 }
-
