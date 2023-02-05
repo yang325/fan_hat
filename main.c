@@ -117,6 +117,7 @@ int main(void)
 
     //get ip
     char IP_buf[20];// xxx.xxx.xxx.xxx
+    int IP_buf_len;
 
     //get temp
     double temp = 0;
@@ -128,8 +129,13 @@ int main(void)
         Paint_Clear(BLACK);
 
         Get_ip(IP_buf);
-        if (isdigit(IP_buf[0]) == 0) {
+        IP_buf_len = strlen(IP_buf);
+        for (int i = 0; i < IP_buf_len; ++i) {
+            if (isdigit(IP_buf[i]) || IP_buf[i] == '.') {
+                continue;
+            }
             strcpy(IP_buf, "Loading...");
+            break;
         }
         Paint_DrawString_EN(0, 0, "IP:", &Font12, BLACK, WHITE);
         Paint_DrawString_EN(25, 0, IP_buf, &Font12, BLACK, WHITE);
