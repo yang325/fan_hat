@@ -4,6 +4,7 @@
 #include <time.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <ctype.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -127,6 +128,9 @@ int main(void)
 		Paint_Clear(BLACK);
 		
 		Get_ip(IP_buf);
+		if (isdigit(IP_buf[0]) == 0) {
+			strcpy(IP_buf, "Loading...");
+		}
 		Paint_DrawString_EN(0, 0, "IP:", &Font12, BLACK, WHITE);
 		Paint_DrawString_EN(25, 0, IP_buf, &Font12, BLACK, WHITE);
 		
